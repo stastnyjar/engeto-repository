@@ -23,11 +23,11 @@ class BookingsList{
     public void listBookings(){
         for(Booking b: bookings){
             System.out.println("-----------------------------");
-            System.out.println("Pokoj: " + b.room.number);
-            int commas = b.guests.size()-1;
+            System.out.println("Pokoj: " + b.getRoom().getNumber());
+            int commas = b.getGuests().size()-1;
             System.out.print("Hosté: ");
-            for(Guest g: b.guests){
-                System.out.print(g.name + " " + g.surname);
+            for(Guest g: b.getGuests()){
+                System.out.print(g.getName() + " " + g.getSurname());
                 if(commas > 0){
                     System.out.print(", ");
                     commas--;
@@ -35,10 +35,9 @@ class BookingsList{
                     System.out.println("");
                 }
             }
-            System.out.println("Začátek pobytu: " + b.startDate.toString());
-            System.out.println("Konec pobytu: " + b.endDate.toString());
-            Period days = b.startDate.until(b.endDate);
-            System.out.println("Účtovaná částka: " + days.getDays()*b.room.price);
+            System.out.println("Začátek pobytu: " + b.getStartDate().toString());
+            System.out.println("Konec pobytu: " + b.getEndDate().toString());
+            System.out.println("Účtovaná částka: " + b.getTotalPrice());
         }
     }
 }

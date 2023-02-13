@@ -4,11 +4,11 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 
 class Booking{
-    Room room;
-    ArrayList<Guest> guests;
-    LocalDate startDate;
-    LocalDate endDate;
-    String vacationType;
+    private Room room;
+    private ArrayList<Guest> guests;
+    private LocalDate startDate;
+    private LocalDate endDate;
+    private String vacationType;
     
     public Booking(Room room, LocalDate startDate, LocalDate endDate, String vacationtType){
         this.room = room;
@@ -18,10 +18,28 @@ class Booking{
         this.vacationType = vacationType;
     }
     public void addGuest(Guest guest){
-        if(room.beds > guests.size()){
+        if(room.getBeds() > guests.size()){
             guests.add(guest);
         }else{
             System.out.println("Varování: Pokoj neobsahuje dost lůžek.");
         }
+    }
+    public Room getRoom(){
+        return room;
+    }
+    public ArrayList<Guest> getGuests(){
+        return guests;
+    }
+    public LocalDate getStartDate(){
+        return startDate;
+    }
+    public LocalDate getEndDate(){
+        return endDate;
+    }
+    public int getDays(){
+        return startDate.until(endDate).getDays();
+    }
+    public int getTotalPrice(){
+        return getDays()*room.getPrice();
     }
 }
