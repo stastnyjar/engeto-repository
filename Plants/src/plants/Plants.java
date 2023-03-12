@@ -13,9 +13,11 @@ public class Plants {
     public static void main(String[] args) throws FileNotFoundException, PlantException, IOException {
         PlantsList list = new PlantsList();
         list.loadData();
+        System.out.println("Podle názvu:");
+        list.sortByName();
         list.writeWateringInfo();
-        list.removePlantAt(2);
-        list.addPlant(new Plant("bazalka v kuchyni", "", LocalDate.of(2021, 9, 4), LocalDate.of(2021, 9, 4), 3));
-        list.saveData();
+        System.out.println("Podle data poslední zálivky:");
+        list.sortByLastWatered();
+        list.writeWateringInfo();
     }
 }

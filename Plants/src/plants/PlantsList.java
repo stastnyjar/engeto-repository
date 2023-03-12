@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 class PlantsList{
@@ -51,5 +52,11 @@ class PlantsList{
             writer.println(plant.getName() + "\t" + plant.getNotes() + "\t" + plant.getWateringFrequency() + "\t" + plant.getLastWatered() + "\t" + plant.getPlanted());
             writer.flush();
         }
+    }
+    public void sortByName(){
+        Collections.sort(plantsList);
+    }
+    public void sortByLastWatered(){
+        Collections.sort(plantsList, new PlantDateComparator());
     }
 }

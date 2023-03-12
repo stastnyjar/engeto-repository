@@ -2,7 +2,7 @@ package plants;
 
 import java.time.LocalDate;
 
-public class Plant {
+public class Plant implements Comparable<Plant>{
     private String name;
     private String notes;
     private LocalDate planted;
@@ -53,5 +53,9 @@ public class Plant {
     }
     public String getWateringInfo(){
         return(name + ", naposledy zalita " + lastWatered + ", doporučená další zálivka " + lastWatered.plusDays(7));
+    }
+    @Override
+    public int compareTo(Plant secondPlant) {
+        return this.name.compareTo(secondPlant.name);
     }
 }
