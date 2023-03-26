@@ -13,14 +13,8 @@ public class Plant implements Comparable<Plant>{
         this.name = name;
         this.notes = notes;
         this.planted = planted;
-        if(lastWatered.isBefore(planted)){
-            throw new PlantException("Poslední zálivka rostliny nemohla být před jejím zasazením.");
-        }
-        this.lastWatered = lastWatered;
-        if(wateringFrequency < 1){
-            throw new PlantException("Frekvence zálivky musí být nezáporné číslo.");
-        }
-        this.wateringFrequency = wateringFrequency;
+        this.setLastWatered(lastWatered);
+        this.setWateringFrequency(wateringFrequency);
     }
     public Plant(String name, LocalDate planted, int wateringFrequency){
         this.name = name;
@@ -50,6 +44,28 @@ public class Plant implements Comparable<Plant>{
     }
     public int getWateringFrequency(){
         return wateringFrequency;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+    public void setPlanted(LocalDate planted) {
+        this.planted = planted;
+    }
+    public void setLastWatered(LocalDate lastWatered) throws PlantException {
+        if(lastWatered.isBefore(planted)){
+            throw new PlantException("Poslední zálivka rostliny nemohla být před jejím zasazením.");
+        }else{
+            this.lastWatered = lastWatered;
+        }
+    }
+    public void setWateringFrequency(int wateringFrequency) throws PlantException {
+        if(wateringFrequency < 1){
+            throw new PlantException("Frekvence zálivky musí být nezáporné číslo.");
+        }
+        this.wateringFrequency = wateringFrequency;
     }
     public String getWateringInfo(){
         return(name + ", naposledy zalita " + lastWatered + ", doporučená další zálivka " + lastWatered.plusDays(7));

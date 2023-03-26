@@ -28,9 +28,13 @@ class PlantsList{
                 Plant plant = new Plant(texts[0], texts[1], datePlanted, dateLastWatered, Integer.parseInt(texts[2]));
                 plantsList.add(plant);
             }catch(PlantException e){
-                
+                System.out.println("Načítání souboru selhalo.");
             }
         }
+    }
+
+    public ArrayList<Plant> getPlantsList() {
+        return plantsList;
     }
     public void addPlant(Plant plant){
         plantsList.add(plant);
@@ -47,10 +51,14 @@ class PlantsList{
         }
     }
     public void saveData() throws FileNotFoundException, IOException{
-        PrintWriter writer = new PrintWriter(new FileWriter("C:\\Users\\jstas\\OneDrive\\Dokumenty\\kvetiny.txt"));
-        for(Plant plant: plantsList){
-            writer.println(plant.getName() + "\t" + plant.getNotes() + "\t" + plant.getWateringFrequency() + "\t" + plant.getLastWatered() + "\t" + plant.getPlanted());
-            writer.flush();
+        try{
+            PrintWriter writer = new PrintWriter(new FileWriter("C:\\Users\\jstas\\OneDrive\\Dokumenty\\kvetiny.txt"));
+            for(Plant plant: plantsList){
+                writer.println(plant.getName() + "\t" + plant.getNotes() + "\t" + plant.getWateringFrequency() + "\t" + plant.getLastWatered() + "\t" + plant.getPlanted());
+                writer.flush();
+            }
+        }catch(Exception e){
+            System.out.println("Ukládání selhalo.");
         }
     }
     public void sortByName(){
