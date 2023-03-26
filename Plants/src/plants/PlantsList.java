@@ -11,30 +11,30 @@ import java.util.Collections;
 import java.util.Scanner;
 
 class PlantsList{
+    String FILE_NAME;
+    String SPLITTER;
     private ArrayList<Plant> plantsList;
     
     public PlantsList(){
+        FILE_NAME = "kvetiny.txt";
+        SPLITTER = "\t";
         plantsList = new ArrayList<>();
     }
-    public void loadData() throws FileNotFoundException{
-        File file = new File("C:\\Users\\jstas\\OneDrive\\Dokumenty\\kvetiny.txt");
+    public void loadData() throws FileNotFoundException, PlantException{
+        File file = new File(FILE_NAME);
         Scanner scanner = new Scanner(file);
         while(scanner.hasNext()){
-            try{
-                String rawText = scanner.nextLine();
-                String[] texts = rawText.split("\t");
-                LocalDate dateLastWatered = LocalDate.parse(texts[3]);
-                LocalDate datePlanted = LocalDate.parse(texts[4]);
-                Plant plant = new Plant(texts[0], texts[1], datePlanted, dateLastWatered, Integer.parseInt(texts[2]));
-                plantsList.add(plant);
-            }catch(PlantException e){
-                System.out.println("Načítání souboru selhalo.");
-            }
+            String rawText = scanner.nextLine();
+            String[] texts = rawText.split(SPLITTER);
+            LocalDate dateLastWatered = LocalDate.parse(texts[3]);
+            LocalDate datePlanted = LocalDate.parse(texts[4]);
+            Plant plant = new Plant(texts[0], texts[1], datePlanted, dateLastWatered, Integer.parseInt(texts[2]));
+            plantsList.add(plant);
         }
     }
 
     public ArrayList<Plant> getPlantsList() {
-        return plantsList;
+        return new ArrayList<>(plantsList);
     }
     public void addPlant(Plant plant){
         plantsList.add(plant);
@@ -51,15 +51,11 @@ class PlantsList{
         }
     }
     public void saveData() throws FileNotFoundException, IOException{
-        try{
-            PrintWriter writer = new PrintWriter(new FileWriter("C:\\Users\\jstas\\OneDrive\\Dokumenty\\kvetiny.txt"));
-            for(Plant plant: plantsList){
-                writer.println(plant.getName() + "\t" + plant.getNotes() + "\t" + plant.getWateringFrequency() + "\t" + plant.getLastWatered() + "\t" + plant.getPlanted());
-                writer.flush();
-            }
-        }catch(Exception e){
-            System.out.println("Ukládání selhalo.");
+        PrintWriter writer = new PrintWriter(new FileWriter(FILE_NAME));
+        for(Plant plant: plantsList){
+            writer.println(plant.getName() + SPLITTER + plant.getNotes() + SPLITTER + plant.getWateringFrequency() + SPLITTER + plant.getLastWatered() + SPLITTER + plant.getPlanted());
         }
+        writer.flush();
     }
     public void sortByName(){
         Collections.sort(plantsList);

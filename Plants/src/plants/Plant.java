@@ -16,19 +16,11 @@ public class Plant implements Comparable<Plant>{
         this.setLastWatered(lastWatered);
         this.setWateringFrequency(wateringFrequency);
     }
-    public Plant(String name, LocalDate planted, int wateringFrequency){
-        this.name = name;
-        this.notes = "";
-        this.planted = planted;
-        this.lastWatered = LocalDate.now();
-        this.wateringFrequency = wateringFrequency;
+    public Plant(String name, LocalDate planted, int wateringFrequency) throws PlantException{
+        this(name, "", planted, LocalDate.now(), wateringFrequency);
     }
-    public Plant (String name){
-        this.name = name;
-        this.notes = "";
-        this.planted = LocalDate.now();
-        this.lastWatered = LocalDate.now();
-        this.wateringFrequency = 7;
+    public Plant (String name) throws PlantException{
+        this(name, LocalDate.now(), 7);
     }
     public String getName(){
         return name;
